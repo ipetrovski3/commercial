@@ -1,0 +1,77 @@
+
+    <h4 style="text-align: center; margin: 0em; padding: 0em;"> <%= pdf_document_type %> Бр. <%= @invoice.number %></h4>
+    <table class="customer" width="40%">
+        <tr>
+            <td><strong>До:</strong></td>
+        </tr>
+        <tr>
+            <td><%= @invoice.customer.name %></td>
+        </tr>
+        <tr>
+            <td>Extra space</td>
+        </tr>
+        <tr>
+            <td><%= @invoice.customer.address  %></td>
+        </tr>
+        <tr>
+            <td><%= "1000" %></td>
+        </tr>
+    </table>
+    <div class="dates">
+      <ul>
+          <li>Датум: <%= @invoice.date %></li>
+          <li>Рок на плаќање: <%= @invoice.due_date  %></li>
+      </ul>
+    </div>
+
+
+    <br />
+
+    <table width="100%" style="margin-top: 15mm;">
+        <thead style="background-color: lightgray;">
+            <tr>
+                <th>Рб</th>
+                <th>Ш.</th>
+                <th width="40%">Артикл</th>
+                <th>Кол.</th>
+                <th width="10%">Ед Цена без ДДВ</th>
+                <th class="ddv">ДДВ %</th>
+                <th>Износ без ДДВ</th>
+                <th width="15%">Цена со ДДВ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% counter = 0 %>
+            <% @invoice.documents.each do |article| %>
+                <tr style="border-bottom: 1px solid rgb(99, 99, 99);">
+                    <th scope="row"><%= counter += 1 %></th>
+                    <td align="right"><%= article.product.code %></td>
+                    <td><%= article.product.display_name %></td>
+                    <td align="right"><%= article.qty %></td>
+                    <td align="right"><%= article.price %></td>
+                    <td align="center">18%</td>
+                    <td align="right"><%= (article.qty * article.price) %></td>
+                    <td align="right"><%= (article.qty * article.price) %></td>
+                </tr>
+            <% end %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"></td>
+                <td align="right">Вкупно без ДДВ:</td>
+                <td align="right"><%= @invoice.net_price %> ден.</td>
+            </tr>
+            <%# @foreach($vats as $key => $vat) %>
+            <tr>
+                <td colspan="6"></td>
+                <td align="right">ДДВ {{ $key == 'five' ? '5%' : '18%' }}:</td>
+                <td align="right">{{ number_format($vat, 2, ',' , '.') }} ден.</td>
+            </tr>
+            <%# @endforeach %>
+            <tr>
+                <td colspan="6"></td>
+                <td align="right">Вкупен Износ:</td>
+                <td align="right" class="gray"><%= @invoice.total_price %> ден.</td>
+            </tr>
+        </tfoot>
+    </table>

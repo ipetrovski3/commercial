@@ -1,0 +1,35 @@
+<div class="bg-white rounded shadow-md p-4">
+  <h2 class="text-lg font-bold mb-4">Dashboard</h2>
+
+  <div class="grid grid-cols-3 gap-4">
+    <div class="bg-blue-500 text-white p-4 rounded shadow-md">
+      <h3 class="text-xl font-bold mb-2">Card 1</h3>
+      <p class="text-sm font-medium mb-2">Some content</p>
+      <p class="text-sm font-medium mb-2">Some more content</p>
+    </div>
+    <div class="bg-green-500 text-white p-4 rounded shadow-md">
+      <h3 class="text-xl font-bold mb-2">Card 2</h3>
+      <p class="text-sm font-medium mb-2">Some content</p>
+      <p class="text-sm font-medium mb-2">Some more content</p>
+    </div>
+    <div class="bg-red-500 text-white p-4 rounded shadow-md">
+      <h3 class="text-xl font-bold mb-2">Card 3</h3>
+      <p class="text-sm font-medium mb-2">Some content</p>
+      <p class="text-sm font-medium mb-2">Some more content</p>
+    </div>
+  </div>
+</div>
+
+<%= form_with url: reports_path, method: :get do |f| %>
+  <%= f.label :start_date %>
+  <%= f.date_field :start_date %>
+  <%= f.label :end_date %>
+  <%= f.date_field :end_date %>
+  <%= f.submit "Submit" %>
+<% end %>
+
+  <%= @documented_products %>
+  <br>
+
+  
+</div>

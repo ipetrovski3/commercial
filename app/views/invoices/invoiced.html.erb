@@ -1,0 +1,5 @@
+<%= @products.each do |p| %>
+  <li class="list-group-item" role="option" data-autocomplete-value="<%= p.id %>" data-autocomplete-label="<%= p.display_name %>">
+    <%= p.display_name %>
+  </li>
+<% end %>

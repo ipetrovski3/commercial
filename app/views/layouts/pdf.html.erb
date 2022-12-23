@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Invoice</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf/pdf" %>
+	</head>
+	<body>
+            <%= image_tag wicked_pdf_asset_base64('logo.jpg'), class:'logo'%>
+		<header>
+		
+			<address>
+				<p>МИШЕЛИНКО-В</p>
+				<p>Ул. нас. место без ул. осветлување <br>с. Брајковци, Валандово</p>
+				<p>Тел 078/314-227 078/407-689</p>
+                <p>ЕДБ МК4003013502203</p>
+                <p>Тутунска банка 210068996250133</p>
+			</address>
+			<div>
+            
+            </div>
+		</header>
+        <%= yield %>
+		<div class="bottom">
+            <div style="margin-bottom: 50px; text-align: center">
+                <span style="padding: 40px; margin-right: 50px; border-top: 1px solid black;"
+                    class="signatures">Примил</span>
+                <span style="padding: 40px; margin-right: 50px; border-top: 1px solid black;"
+                    class="signatures">Предал</span>
+                <span style="padding: 40px; margin-right: 50px; border-top: 1px solid black;"
+                    class="signatures">Контролирал</span>
+                <span style="padding: 40px; border-top: 1px solid black" class="signatures">Фактурирал</span>
+                <p style="float: right; font-size: small; margin-top: -45px; margin-right: 40px; max-width:">Овластено лице за фактури <br> Ангел Петков</p>
+            </div>
+			<hr>
+			<div>
+				Рекламации се примаат во рок од 3 дена од денот на приемот на стоката со уреден записник. Во случај
+                на спор надлежен е Основниот Суд во Гевгелија. За ненавремено плаќање пресметуваме законска казнена камата
+                и еднократен надомест согласно со законот за финанскиска дисциплина (3.000,00 ден).
+			</div>
+		</div>
+	</body>
+</html>

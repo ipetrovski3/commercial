@@ -1,0 +1,51 @@
+<%= form_for customer, data: { turbo: false } do |form| %>
+  <div class="mx-auto max-w-lg">
+    <div class="py-1">
+      <%= form.label :name, class: "px-1 text-sm text-gray-600" %>
+      <%= form.text_field :name, class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" %>
+
+    </div>
+    <div class="py-1">
+      <%= form.label :address, class: "px-1 text-sm text-gray-600" %>
+      <%= form.text_field :address, class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" %>
+    </div>
+    <div class="py-1 grid grid-cols-2">
+      <div>
+        <%= form.label :phone, class: "text-sm text-gray-600" %>
+        <%= form.text_field :phone, class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" %>
+      </div>
+      <div>
+        <%= form.label :customer_type, class: "text-sm text-gray-600" %>
+        <%= form.select :customer_type, Customer.customer_types.keys, {}, class: "w-full block border border-gray-200 rounded px-3 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" %>
+      </div>
+    </div>
+    <div class="py-1">
+      <%= form.label :email, class: "px-1 text-sm text-gray-600" %> 
+      <%= form.text_field :email, class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" %>
+    </div>
+    <div class="py-1">
+      <%= form.label :edb, class: "px-1 text-sm text-gray-600" %>
+      <%= form.text_field :edb, class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" %>
+    </div>
+    <div class="py-1">
+      <%= form.label :emb, class: "px-1 text-sm text-gray-600" %>
+      <%= form.text_field :emb, {   class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"} %>
+    </div>
+    <div class="py-1">
+      <%= form.label :due, class: "px-1 text-sm text-gray-600" %>
+      <%= form.number_field :due,  { value: 7, class: "text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"} %>
+    </div>
+
+    <div class="py-1">
+      <%= form.submit class: "mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  </div>
+
+<% end %>

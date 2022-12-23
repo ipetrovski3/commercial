@@ -1,0 +1,5 @@
+<% @customers.each do |customer| %>
+  <li class="hover:bg-sky-300 p-2" role="option" data-autocomplete-value="<%= customer.id %>" data-autocomplete-label="<%= customer.name %>">
+    <%= customer.name %>
+  </li>
+<% end %>

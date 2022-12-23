@@ -1,0 +1,50 @@
+      <table class="table-auto text-sm">
+        <thead>
+          <tr class="border-b border-gray-200">
+            <th class="p-3 text-gray-700 bg-gray-100 font-semibold text-sm tracking-wider uppercase text-center">
+              #
+            </th>
+            <th class="p-3 w-full text-gray-700 bg-gray-100 font-semibold text-sm tracking-wider uppercase text-left">
+              Артикл
+            </th>
+            <th class="p-3 text-gray-700 bg-gray-100 font-semibold text-sm tracking-wider uppercase text-center">
+              Кол
+            </th>
+            <th class="p-3 text-gray-700 bg-gray-100 font-semibold text-sm tracking-wider uppercase text-center">
+              Ед Ценa
+            </th>
+            <th class="p-3 text-gray-700 bg-gray-100 font-semibold text-sm tracking-wider uppercase text-center">
+              Вк Цена
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <div >
+        <% counter = 0 %>
+        <%= f.fields_for :documents do |product_form| %>
+          <tr class="border-b border-gray-200">
+            <td class="p-1 text-center">
+              <%= counter += 1 %>
+            </td>
+            <td data-controller="autocomplete" data-autocomplete-url-value="<%= invoiced_products_path %>" role="combobox">
+                <input type="text" id=<%= "input_#{counter}" %> class="w-full block border border-gray-200 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" data-autocomplete-target="input"/>
+                <%= product_form.hidden_field :product_id, data: { autocomplete_target: 'hidden', math_target: 'productInput', row: counter} %>
+                <ul class="list-group w-full z-50" data-autocomplete-target="results"></ul>
+            </td>
+            <td class="p-1 text-center">
+              <%= product_form.text_field :qty,
+                  class: "w-12 #{input_class}", data: { math_target: 'qty', action:'keyup->math#change_qty' } %>
+            </td>
+            <td class="p-1 text-center">
+              <%= product_form.text_field :price,
+                class: "#{input_class} w-24", data: { math_target: 'price', action:'keyup->math#change_price' } %>
+            </td>
+            <td class="p-1 text-center">
+              <%= product_form.text_field :total_price,  disabled: true,
+                class: "#{input_class} w-24 sum_field", data: { math_target: 'total' } %>
+            </td>
+          </tr>
+        <% end %>
+        </div>
+        </tbody>
+      </table>

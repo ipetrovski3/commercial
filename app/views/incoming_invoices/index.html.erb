@@ -1,0 +1,35 @@
+<div class="flex flex-col">
+  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead class="border-b">
+            <tr>
+              <th scope="col" class="text-sm w-4 font-medium text-gray-900 px-6 py-1 text-left">
+                #
+              </th>
+              <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+                Број на Влезна Фактура
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-1 text-left">
+                Добавувач
+              </th>
+              <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+                Датум
+              </th>
+              <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+                Износ
+              </th>
+              <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+                Опции
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render 'shared/documents/documents', documents: @incoming_invoices, pdf_view: false %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
