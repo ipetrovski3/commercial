@@ -33,10 +33,26 @@ class CustomersController < ApplicationController
     end
   end
 
+  def destroy
+    @customer = Customer.find(params[:id])
+    @customer.destroy
+    redirect_to customers_path
+  end
+
   def invoiced
     # binding.remote_pry
     @customers = Customer.where('name ILIKE ?', "%#{params[:q]}%")
     render layout: false
+  end
+
+  def list
+    direction = params[:direction]
+    customers = if params[:column] == 'total'
+                  Customer.joins(:invoices).group('customers.id').order("sum(invoices.total_price) #{direction}")
+                else
+                  Customer.all.order("#{params[:column]} #{direction}")
+                end
+    render(partial: 'customers', locals: { customers: })
   end
 
   private

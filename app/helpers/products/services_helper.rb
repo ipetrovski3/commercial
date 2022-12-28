@@ -1,0 +1,2 @@
+module Products::ServicesHelper
+end

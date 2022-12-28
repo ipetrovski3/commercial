@@ -38,6 +38,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'requestjs-rails'
 
+gem 'pagy'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -79,3 +81,5 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-passenger'
 gem 'capistrano-rbenv'
+
+

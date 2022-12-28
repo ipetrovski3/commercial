@@ -17,4 +17,8 @@ class Customer < ApplicationRecord
 
   has_many :invoices, dependent: :destroy
   has_many :incoming_invoices, dependent: :destroy
+
+  def total
+    invoices.sum(:total_price)
+  end
 end

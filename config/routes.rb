@@ -1,16 +1,23 @@
-
 Rails.application.routes.draw do
-
-  
   resources :reports
   get '/reports/period', to: 'reports#period'
   get 'reports/by_season', to: 'reports#by_season'
-  resources :products do
+  resources :products, except: :show do
     collection do
       get :brands
       get :search
       get :invoiced
     end
+  end
+
+  namespace :products do
+    resources :tires do
+      collection do
+        get :dimensions
+      end
+    end
+    resources :services
+    resources :others
   end
 
   root 'dashboard#index'
@@ -21,6 +28,7 @@ Rails.application.routes.draw do
   resources :customers do
     collection do
       get :invoiced
+      get :list
     end
   end
 end

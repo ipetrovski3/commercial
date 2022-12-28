@@ -1,4 +1,7 @@
 mk:
+  pagy:
+    prev: 'Претходна'
+    next: 'Следна'
   activerecord:
     errors:
       messages:

@@ -30,6 +30,8 @@ class Product < ApplicationRecord
   scope :summer_season, -> { includes(:pattern).where(patterns: { season: 'summer' }) }
   scope :all_season, -> { includes(:pattern).where(patterns: { season: 'all_season' }) }
 
+  scope :tires, -> { joins(:brand).where('brands.category_id = ?', Category.find_by(name: 'Гуми').id) }
+
   enum vat: { '18%' => 18, '5%' => 5, '0%' => 0 }
 
   def display_name
