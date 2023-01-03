@@ -30,23 +30,20 @@
                 <th class="third"><span contenteditable>Артикл</span></th>
                 <th class="first"><span contenteditable>Кол</span></th>
                 <th><span contenteditable>Ед Цена без ддв</span></th>
-                <th><span contenteditable>Ддв</span></th>
                 <th><span contenteditable>Ед Цена</span></th>
                 <th class="first"><span contenteditable>ДДВ %</span></th>
                 <th><span contenteditable>Вкупна цена</span></th>
             </tr>
         </thead>
         <tbody>
-        <% count = 0 %>
+        <% count = 0%>
             <% @invoice.documents.each do |article| %>
             <tr>
-                <% ddv = article.price - (article.price / Invoice::VAT_CALCULATOR) %>
                 <td><span contenteditable><%= count += 1 %></span></td>
                 <td><span contenteditable><%= article.product.code %></span></td>
-                <td class="article-name"><%= article.product.display_name %></td>
+                <td><%= article.product.display_name %></td>
                 <td><span contenteditable><%= article.qty %></span></td>
-                <td><span><%= number_to_currency(article.price - ddv, locale: :mk) %></span></td>
-                <td><span><%= number_to_currency(ddv, locale: :mk) %></span></td>
+                <td><span><%= number_to_currency(article.price, locale: :mk) %></span></td>
                 <td><span><%= number_to_currency(article.price, locale: :mk) %></span></td>
                 <td><span>18</span></td>
                 <td><span><%= number_to_currency((article.price * article.qty), locale: :mk) %></span></td>

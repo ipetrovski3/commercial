@@ -26,6 +26,8 @@
       <%= render 'shared/documents/nested', f: f %>
     </div>
     <div>
+    <% unless @issue_slip %>
+      
       <div class="mt-36 border-y p-3 border-gray-400 mb-4 flex justify-between">
         <div class="text-gray-700 font-semibold text-sm tracking-wider uppercase text-left">
           ДДВ
@@ -39,7 +41,7 @@
           Износ без ДДВ
         </div>
         <div data-math-target="withOutDDV" class="text-gray-700 font-semibold text-sm tracking-wider uppercase text-right">
-          /
+          <%= @invoice.net_price.present? ? number_to_currency(@invoice.net_price, locale: :mk) : '/' %>
         </div>
       </div>
       <div class="border-y p-3 border-gray-400 mb-4 flex justify-between">
@@ -47,7 +49,7 @@
           ДДВ Износ
         </div>
         <div data-math-target="ddv" class="text-gray-700 font-semibold text-sm tracking-wider uppercase text-right">
-          /
+          <%= @invoice.vat.present? ? number_to_currency(@invoice.vat, locale: :mk) : '/' %>
         </div>
       </div>
       <div class="border-y p-3 border-gray-400 mb-4 flex justify-between">
@@ -55,10 +57,11 @@
           Вкупен износ:
         </div>
         <div data-math-target="netPrice" class="text-gray-700 font-semibold text-sm tracking-wider uppercase text-right">
-          /
+        <%= @invoice.total_price.present? ? number_to_currency(@invoice.total_price, locale: :mk) : '/' %>
         </div>
       </div>
     
+    <% end %>
     </div>
   </div>
 

@@ -58,7 +58,6 @@ def find_or_create_pattern_and_brand(pattern_name, brand_name)
   end
 end
 
-
 CSV.foreach('lib/seeds/zaliha.csv', headers: true) do |row|
   pattern = find_or_create_pattern_and_brand(row[4], row[3])
 
@@ -69,7 +68,6 @@ CSV.foreach('lib/seeds/zaliha.csv', headers: true) do |row|
   p.retail_price = 0
   p.save!
   ProductsService.new(p).call
-  
 end
 
 puts 'Seeded'

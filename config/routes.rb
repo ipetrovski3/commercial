@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   resources :invoices
   resources :categories
   resources :incoming_invoices
+  resources :issue_slips
+  
   resources :customers do
     collection do
       get :invoiced

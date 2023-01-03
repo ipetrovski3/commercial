@@ -7,21 +7,26 @@ class ProductsService
   end
 
   def call
-    product.update(code: code, name: name, location: location)
+    product.update(code: generate_code, name: set_name, location: set_location)
   end
 
-  def location
-    dimension.gsub(/[^\d]/, '')
+  def set_location
+    return dimension.gsub(/[^\d]/, '') if dimension.present?
   end
 
-  def code
+  def generate_code
     brand_code = product.pattern.brand.id.to_s.rjust(2, '0')
     pattern_code = product.pattern.id.to_s.rjust(2, '0')
-    product_code = Product.where(pattern_id: product.pattern.id).count.to_s.rjust(2, '0')
+    product_code = pattern_products_count.to_s.rjust(2, '0')
     "#{brand_code}#{pattern_code}#{product_code}"
   end
 
-  def name
+  def set_name
     "#{product.brand_name} #{product.pattern_name}"
+  end
+
+  def pattern_products_count
+    pattern = product.pattern
+    pattern.products.count
   end
 end

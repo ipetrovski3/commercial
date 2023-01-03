@@ -13,7 +13,8 @@ class DocumentsService
   def update_document
     total_price = document.documents.sum(:total_price)
     net_price = total_price / Invoice::VAT_CALCULATOR
-    document.update(total_price: total_price, net_price: net_price)
+    vat = total_price - net_price
+    document.update(total_price: total_price, net_price: net_price, vat: vat)
   end
 
   def handle_product_stock
@@ -31,12 +32,16 @@ class DocumentsService
 
   def decrease_product_stock
     document.documents.each do |document|
+      next unless document.product.stockable?
+
       document.product.update(stock: document.product.stock - document.qty)
     end
   end
 
   def increase_product_stock
     document.documents.each do |document|
+      next unless document.product.stockable?
+
       document.product.update(stock: document.product.stock + document.qty)
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_190552) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_30_184005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_190552) do
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
   end
 
+  create_table "issue_slips", force: :cascade do |t|
+    t.integer "number"
+    t.date "date"
+    t.bigint "customer_id", null: false
+    t.string "received_by"
+    t.string "licence_plate"
+    t.integer "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_issue_slips_on_customer_id"
+  end
+
   create_table "patterns", force: :cascade do |t|
     t.string "name"
     t.integer "season"
@@ -126,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_190552) do
   add_foreign_key "documented_products", "products"
   add_foreign_key "incoming_invoices", "customers"
   add_foreign_key "invoices", "customers"
+  add_foreign_key "issue_slips", "customers"
   add_foreign_key "patterns", "brands"
   add_foreign_key "products", "patterns"
 end

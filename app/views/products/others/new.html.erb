@@ -1,1 +1,2 @@
-<%= @category_id %>
+<%= @category.name %>
+<%= render 'products/form', route: products_others_path, product: @product, category_id: @category.id %>

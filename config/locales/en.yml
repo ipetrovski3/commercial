@@ -50,6 +50,9 @@ en:
         customer_types:
           company: 'Компанија'
           person: 'Физичко Лице'
+      product:
+        name: Назив
+        retail_price: Продажна цена
 
     enums:
       customer:

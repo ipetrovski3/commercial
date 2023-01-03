@@ -30,4 +30,21 @@ module ApplicationHelper
       products_others_path(category_id: cat_id)
     end
   end
+
+  def icon(name)
+    case name
+    when 'Гуми'
+      content_tag(:i, '', class: 'fa-solid fa-cookie')
+    when 'Услуги'
+      content_tag(:i, '', class: 'fa-solid fa-tools')
+    when 'Моторно Масло'
+      content_tag(:i, '', class: 'fa-solid fa-oil-can')
+    when 'Козметика'
+      content_tag(:i, '', class: 'fa-solid fa-tree')
+    when 'Вулканизерска Опрема'
+      content_tag(:i, '', class: 'fa-solid fa-toolbox')
+    else
+      content_tag(:i, '', class: 'fa-solid fa-box')
+    end
+  end
 end

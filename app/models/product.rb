@@ -41,4 +41,8 @@ class Product < ApplicationRecord
   def total_qty_invoiced
     DocumentedProduct.tire_sales.where(product_id: id).sum(:qty)
   end
+
+  def stockable?
+    brand.category.goods?
+  end
 end

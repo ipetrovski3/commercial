@@ -80,6 +80,17 @@ export default class extends Controller {
     this.ddvTarget.innerHTML = ddv + ' ден.'
   }
 
+  set_price(event) {
+    console.log(event.target.value)
+    let price_id = this.result(event.target.id)
+    let price_field = `${this.controllerValue}_documents_attributes_${price_id}_price`
+    fetch(`/products/?product_id=${event.target.value}`, { headers: { accept: "application/json" } })
+    .then(response => response.json())
+    .then((data) => {
+      document.getElementById(price_field).value = data.retail_price
+    })
+  }
+
 
 }
 
