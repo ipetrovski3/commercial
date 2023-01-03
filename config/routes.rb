@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'products#index'
+
   resources :reports
   get '/reports/period', to: 'reports#period'
   get 'reports/by_season', to: 'reports#by_season'
@@ -20,17 +22,18 @@ Rails.application.routes.draw do
     resources :others
   end
 
-  root 'dashboard#index'
   devise_for :users
   resources :invoices
   resources :categories
   resources :incoming_invoices
   resources :issue_slips
-  
+
   resources :customers do
     collection do
       get :invoiced
       get :list
     end
   end
+
+  resources :hotels
 end

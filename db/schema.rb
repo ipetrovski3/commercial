@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_30_184005) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_03_155859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_184005) do
     t.float "price"
     t.float "total_price"
     t.index ["product_id"], name: "index_documented_products_on_product_id"
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "car_model"
+    t.string "licence_plate"
+    t.boolean "with_wheels"
+    t.date "date_in"
+    t.date "date_out"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_hotels_on_customer_id"
   end
 
   create_table "incoming_invoices", force: :cascade do |t|
@@ -122,6 +134,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_184005) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tire_hotels", force: :cascade do |t|
+    t.bigint "hotel_id", null: false
+    t.string "tire"
+    t.integer "qty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_tire_hotels_on_hotel_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -136,9 +157,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_184005) do
 
   add_foreign_key "brands", "categories"
   add_foreign_key "documented_products", "products"
+  add_foreign_key "hotels", "customers"
   add_foreign_key "incoming_invoices", "customers"
   add_foreign_key "invoices", "customers"
   add_foreign_key "issue_slips", "customers"
   add_foreign_key "patterns", "brands"
   add_foreign_key "products", "patterns"
+  add_foreign_key "tire_hotels", "hotels"
 end

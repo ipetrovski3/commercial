@@ -37,4 +37,8 @@ class Invoice < ApplicationRecord
   def due_date
     date + self.customer.due.to_i.days
   end
+
+  def formated_date
+    date.strftime('%d.%m.%Y')
+  end
 end

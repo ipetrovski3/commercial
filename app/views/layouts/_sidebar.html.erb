@@ -27,11 +27,7 @@
           <span class="py-2 grow">Залиха</span>
         <% end %>
 
-
-          <a href="javascript:void(0)" class="flex items-center space-x-3 px-3 font-medium rounded text-gray-50 bg-gray-700 bg-opacity-60">
-        
-          </a>
-          <div class="px-3 pt-5 pb-2 text-xs font-medium uppercase tracking-wider text-gray-400">Projects</div>
+          <div class="px-3 pt-5 pb-2 text-xs font-medium uppercase tracking-wider text-gray-400">Документи</div>
           <a href="<%= invoices_path %>" class="flex items-center space-x-3 px-3 font-medium rounded text-gray-300 hover:text-gray-100 hover:bg-gray-700 hover:bg-opacity-60 active:bg-gray-700 active:bg-opacity-40">
             <i class="fa-solid fa-file-invoice"></i>
             <span class="py-2 grow">Фактури</span>
@@ -48,6 +44,14 @@
             <span class="py-2 grow">Влезни Фактури</span>
             <span class="px-2 py-1 rounded-full text-xs font-medium leading-4 bg-opacity-10 text-gray-100 bg-gray-400"><%= incoming_invoces_this_month %></span>
           </a>
+
+          <a href="<%= hotels_path %>" class="flex items-center space-x-3 px-3 font-medium rounded text-gray-300 hover:text-gray-100 hover:bg-gray-700 hover:bg-opacity-60 active:bg-gray-700 active:bg-opacity-40">
+            <i class="fa-solid fa-hotel"></i>
+            <span class="py-2 grow">Хотел за гуми</span>
+          </a>
+
+          <div class="px-3 pt-5 pb-2 text-xs font-medium uppercase tracking-wider text-gray-400">Клиенти</div>
+
           <a href="<%= customers_path %>" class="flex items-center space-x-3 px-3 font-medium rounded text-gray-300 hover:text-gray-100 hover:bg-gray-700 hover:bg-opacity-60 active:bg-gray-700 active:bg-opacity-40">
             <i class="fa-solid fa-users"></i>
             <span class="py-2 grow">Клиенти</span>
