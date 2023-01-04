@@ -12,7 +12,7 @@ goods.each { |good| Category.create!(name: good, cat_type: 'goods') }
 # m_summer.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 0) }
 # m_winter.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 1) }
 # m_all_season.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 2) }
-
+Category.create(name: 'Услуги', cat_type: 'service')
 file = File.read('lib/seeds/dimensions.json')
 data_hash = JSON.parse(file).symbolize_keys
 doc_keys = data_hash.keys
