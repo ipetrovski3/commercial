@@ -1,0 +1,44 @@
+<h1 class="font-bold border p-2 text-2xl">Хотел за Гуми | Мишелинко - В</h1>
+<p class="border p-2"><span class="font-bold">Клиент: </span><%= @hotel.customer.name %> </p>
+<p class="border p-2"><span class="font-bold">Возило: </span><%= @hotel.car_model %> </p>
+<p class="border p-2"><span class="font-bold">Регистрација: </span><%= @hotel.licence_plate %> </p>
+<p class="border p-2"><span class="font-bold">Датум на прием: </span>
+  <%= @hotel.date_in.strftime('%d.%m.%Y') %></p>
+<div>
+  <h3>Гуми</h3>
+    <table class="min-w-full">
+    <thead class="border-b">
+      <tr>
+        <th scope="col" class="text-sm w-4 font-medium text-gray-900 px-6 py-1 text-left">
+          #
+        </th>
+        <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+          Модел и димензија
+        </th>
+        <th scope="col" class="text-sm w-full font-medium text-gray-900 px-6 py-1 text-left">
+          Сезона
+        </th>
+        <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+          Количина
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @hotel.tire_hotels.each_with_index do |tire, index|%>
+      <tr class="border-b">
+        <td class="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900"><%= index + 1 %></td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%= tire.tire %>
+        </td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%= t(tire.season) %>
+        </td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%= tire.qty %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

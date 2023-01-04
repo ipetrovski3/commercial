@@ -14,3 +14,4 @@ pin 'datepicker.js', to: 'https://ga.jspm.io/npm:datepicker.js@0.0.1-beta1/datep
 pin 'stimulus-datepicker', to: 'https://ga.jspm.io/npm:stimulus-datepicker@1.0.1/src/datepicker.js'
 pin '@fortawesome/fontawesome-free', to: 'https://ga.jspm.io/npm:@fortawesome/fontawesome-free@6.1.1/js/all.js'
 pin 'stimulus-rails-nested-form', to: 'https://ga.jspm.io/npm:stimulus-rails-nested-form@4.1.0/dist/stimulus-rails-nested-form.mjs'
+pin "tailwindcss-stimulus-components", to: "https://ga.jspm.io/npm:tailwindcss-stimulus-components@3.0.4/dist/tailwindcss-stimulus-components.modern.js"

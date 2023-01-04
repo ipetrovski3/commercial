@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<title>Invoice</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf/pdf" %>
+	</head>
+	<body>
+  <div></div>
+    <%= image_tag wicked_pdf_asset_base64('logo.jpg'), class:'logo'%>
+		<header>
+      <address>
+				<p>МИШЕЛИНКО-В</p>
+				<p>Ул. нас. место без ул. осветлување <br>с. Брајковци, Валандово</p>
+				<p>Тел 078/314-227 078/407-689</p>
+                <p>ЕДБ МК4003013502203</p>
+                <p>Тутунска банка 210068996250133</p>
+			</address>
+			<div>
+            
+            </div>
+		</header>
+    <%= yield %>
+
+    
+    <div style="position: fixed; bottom:2">
+    <%= image_tag wicked_pdf_asset_base64('logo.jpg'), class:'logo'%>
+		<header>
+		
+			<address>
+				<p>МИШЕЛИНКО-В</p>
+				<p>Ул. нас. место без ул. осветлување <br>с. Брајковци, Валандово</p>
+				<p>Тел 078/314-227 078/407-689</p>
+                <p>ЕДБ МК4003013502203</p>
+                <p>Тутунска банка 210068996250133</p>
+			</address>
+			<div>
+            
+      </div>
+		</header>
+        <%= yield %>
+    </div>   
+	</body>
+</html>

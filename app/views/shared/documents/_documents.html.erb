@@ -14,23 +14,19 @@
       <%= invoice.respond_to?(:total_price) ? number_to_currency(invoice.total_price, locale: :mk) : invoice.invoice_id  %>
     </td>
     <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-     
-
-     
-          <!-- Simple Button Group (only icons) -->
-          <div class="inline-flex">
-            <%= link_to invoice_path(invoice), class:'text-green-700 px-2' do %>
-              <i class="fa-solid fa-eye fa-2xl"></i>
-            <% end %>
-            <%= link_to edit_invoice_path(invoice), class:'text-yellow-600 px-2' do %>
-              <i class="fa-solid fa-pen-to-square fa-2xl"></i>
-            <% end %>
-            <% if pdf_view %>
-              <%= link_to invoice_path(invoice, format: 'pdf'), class:'text-indigo-800 px-2' do %>
-                <i class="fa-solid fa-file-pdf fa-2xl"></i>
-              <% end %>
-            <% end %>
-          </div>
+      <div class="inline-flex">
+        <%= link_to document_show_route('show', controller_name, invoice), class:'text-green-700 px-2' do %>
+          <i class="fa-solid fa-eye fa-2xl"></i>
+        <% end %>
+        <%= link_to document_show_route('edit', controller_name, invoice), class:'text-yellow-600 px-2' do %>
+          <i class="fa-solid fa-pen-to-square fa-2xl"></i>
+        <% end %>
+        <% if pdf_view %>
+          <%= link_to document_show_route('show', controller_name, invoice, 'pdf'), class:'text-indigo-800 px-2' do %>
+            <i class="fa-solid fa-file-pdf fa-2xl"></i>
+          <% end %>
+        <% end %>
+      </div>
     </td>
   </tr>
   <% end %>

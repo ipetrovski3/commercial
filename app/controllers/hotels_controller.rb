@@ -1,11 +1,10 @@
 class HotelsController < ApplicationController
   def index
-    @hotels = Hotel.all
+    @hotels = Hotel.in_hotel
   end
 
   def new
     @hotel = Hotel.new
-    2.times {@hotel.tire_hotels.build}
   end
 
   def create
@@ -14,6 +13,20 @@ class HotelsController < ApplicationController
       redirect_to hotels_path
     else
       render :new
+    end
+  end
+
+  def show
+    @hotel = Hotel.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "hotel_#{params[:id]}",
+               template: 'hotels/pdf',
+               layout: 'hotel_pdf',
+               formats: [:html],
+               encoding: 'UTF-8'
+      end
     end
   end
 
@@ -47,7 +60,7 @@ class HotelsController < ApplicationController
             :with_wheels,
             :date_in,
             :date_out,
-            tire_hotels_attributes: %i[id hotel_id tire qty _destroy]
-          )
+            tire_hotels_attributes: %i[id hotel_id season tire qty _destroy]
+          ).merge(date_in: Date.today)
   end
 end

@@ -17,4 +17,8 @@ class IssueSlip < ApplicationRecord
   def invoiced?
     invoice_id.present?
   end
+
+  def formated_date
+    date.strftime('%d.%m.%Y')
+  end
 end

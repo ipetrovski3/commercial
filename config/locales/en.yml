@@ -53,6 +53,8 @@ en:
       product:
         name: Назив
         retail_price: Продажна цена
+      hotel:
+        with_wheels: Со Бандажи
 
     enums:
       customer:

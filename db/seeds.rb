@@ -23,18 +23,18 @@ doc_keys.each do |key|
   end
 end
 
-# 100.times do
-#   p = Product.create(
-#     stock: rand(30..100),
-#     retail_price: rand(2500..5000),
-#     pattern: Pattern.all.sample,
-#     vat: '18%',
-#     dimension: TireDimension.all.sample.dimension
-#   )
-#   ProductsService.new(p).call
-# end
 
-# stock from lib/seeds/zaliha.csv
+def season_type(season)
+  case (season)
+  when 'LETO'
+    0
+  when 'ZIMA'
+    1
+  when '4 SEZONI'
+    2
+  end
+end
+
 def find_or_create_brand_from_pattern(brand_name)
   brand_name = brand_name.gsub(/\A\s+|\s+\z/, '').capitalize
   brand = Brand.find_by('name ILIKE ?', "%#{brand_name}%")
@@ -45,7 +45,7 @@ def find_or_create_brand_from_pattern(brand_name)
   end
 end
 
-def find_or_create_pattern_and_brand(pattern_name, brand_name)
+def find_or_create_pattern_and_brand(pattern_name, brand_name, season)
   brand = find_or_create_brand_from_pattern(brand_name)
   pattern_name = pattern_name.gsub(/\A\s+|\s+\z/, '').capitalize
   pattern_name = pattern_name.gsub(/\  +/, ' ')
@@ -54,16 +54,16 @@ def find_or_create_pattern_and_brand(pattern_name, brand_name)
   if pattern.present?
     pattern
   else
-    Pattern.create(name: pattern_name, brand: brand, season: 0)
+    Pattern.create(name: pattern_name, brand: brand, season: season_type(season))
   end
 end
 
-CSV.foreach('lib/seeds/zaliha.csv', headers: true) do |row|
-  pattern = find_or_create_pattern_and_brand(row[4], row[3])
+CSV.foreach('lib/seeds/IGOR PROGRAMA.csv', headers: true) do |row|
+  pattern = find_or_create_pattern_and_brand(row[4], row[3], row[5])
 
   p = Product.new
   p.dimension = "#{row[0]}/#{row[1]}R#{row[2]}"
-  p.stock = row[5]
+  p.stock = row[6]
   p.pattern = pattern
   p.retail_price = 0
   p.save!

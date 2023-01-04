@@ -41,7 +41,7 @@ class CustomersController < ApplicationController
 
   def invoiced
     # binding.remote_pry
-    @customers = Customer.where('name ILIKE ?', "%#{params[:q]}%")
+    @customers = Customer.where('name ILIKE ?', "%#{params[:q]}%").or(Customer.where(id: params[:q]))
     render layout: false
   end
 

@@ -1,1 +1,69 @@
-<%= link_to 'text', new_hotel_path %>
+<div class="flex justify-between items-center mb-4">
+  <h1 class="font-bold text-4xl">Хотел</h1>
+  <%= link_to 'Нов Прием во Хотел', new_hotel_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full">
+    <thead class="border-b">
+      <tr>
+        <th scope="col" class="text-sm w-4 font-medium text-gray-900 px-6 py-1 text-left">
+          #
+        </th>
+        <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+          Клиент
+        </th>
+        <th scope="col" class="text-sm w-full font-medium text-gray-900 px-6 py-1 text-left">
+          Возило
+        </th>
+        <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-left">
+          Регистрација
+        </th>
+        <th scope="col" class="text-sm w-32 font-medium text-gray-900 px-6 py-1 text-right">
+          Датум на прием
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-1 text-center">
+          Датум на излез
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @hotels.each_with_index do |hotel, index|%>
+      <tr class="border-b">
+        <td class="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900"><%= index + 1 %></td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+        <%= link_to '#', data: { turbo_frame: 'modal' } do %>
+          <%= hotel.customer.name %>  
+        <% end %>
+          
+        </td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%= hotel.car_model %>
+        </td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%= hotel.licence_plate %>
+        </td>
+        <td class="text-sm text-right text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%=  hotel.date_in.strftime('%d.%m.%Y') %>
+        </td>
+        <td class="text-sm text-right text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <%= hotel.date_out.present? ? hotel.date_out.strftime('%d.%m.%Y') : '/' %>
+        </td>
+        <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+          <div class="inline-flex">
+            <%= link_to hotel_path(hotel), class:'text-green-700 px-2' do %>
+              <i class="fa-solid fa-eye fa-2xl"></i>
+            <% end %>
+            <%= link_to edit_hotel_path(hotel), class:'text-yellow-600 px-2' do %>
+              <i class="fa-solid fa-pen-to-square fa-2xl"></i>
+            <% end %>
+            <%= link_to hotel_path(hotel, format: 'pdf'), class:'text-indigo-800 px-2' do %>
+              <i class="fa-solid fa-file-pdf fa-2xl"></i>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

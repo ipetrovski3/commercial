@@ -15,6 +15,8 @@ module ApplicationHelper
       'Фактура'
     when 'incoming_invoices'
       'IncomingInvoice'
+    when 'issue_slips'
+      'Испратница'
     else
       return
     end
@@ -45,6 +47,31 @@ module ApplicationHelper
       content_tag(:i, '', class: 'fa-solid fa-toolbox')
     else
       content_tag(:i, '', class: 'fa-solid fa-box')
+    end
+  end
+
+  def document_show_route(action, controller_name, document, format = 'html')
+    case controller_name
+    when 'invoices'
+      if action == 'show'
+        invoice_path(document, format: format)
+      elsif action == 'edit'
+        edit_invoice_path(document, format: format)
+      end
+    when 'incoming_invoices'
+      if action == 'show'
+        incoming_invoice_path(document, format: format)
+      elsif action == 'edit'
+        edit_incoming_invoice_path(document, format: format)
+      end
+    when 'issue_slips'
+      if action == 'show'
+        issue_slip_path(document, format: format)
+      elsif action == 'edit'
+        edit_issue_slip_path(document, format: format)
+      end
+    else
+      return
     end
   end
 end

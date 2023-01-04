@@ -2,24 +2,19 @@
     <h1>Recipient</h1>
     <address contenteditable>
         <p>
-            <%= @invoice.customer.name %>
+            <%= @issue_slip.customer.name %>
             <br>
-            <%= @invoice.customer.address %>
+            <%= @issue_slip.customer.address %>
         </p>
     </address>
     <table class="meta">
         <tr>
-            <th><span contenteditable>Фактура бр.</span></th>
-            <td><span contenteditable><%= @invoice.number %></span></td>
+            <th><span contenteditable>Испратница бр.</span></th>
+            <td><span contenteditable><%= @issue_slip.number %></span></td>
         </tr>
         <tr>
             <th><span contenteditable>Датум</span></th>
-            <td><span contenteditable><%= @invoice.date.strftime('%d.%m.%Y') %></span></td>
-        </tr>
-        <tr>
-            <th><span contenteditable>Рок за плаќање</span></th>
-            <% due_date = (@invoice.date + @invoice.due_days.days).strftime('%d.%m.%Y') %>
-            <td><span><%= due_date %></span></td>
+            <td><span contenteditable><%= @issue_slip.date.strftime('%d.%m.%Y') %></span></td>
         </tr>
     </table>
     <table class="inventory">
@@ -29,46 +24,26 @@
                 <th class="second"><span contenteditable>Шифрра</span></th>
                 <th class="third"><span contenteditable>Артикл</span></th>
                 <th class="first"><span contenteditable>Кол</span></th>
-                <th><span contenteditable>Ед Цена без ддв</span></th>
-                <th><span contenteditable>Ед Цена</span></th>
-                <th class="first"><span contenteditable>ДДВ %</span></th>
-                <th><span contenteditable>Вкупна цена</span></th>
+
             </tr>
         </thead>
         <tbody>
-        <% count = 0%>
-            <% @invoice.documents.each do |article| %>
+        <% count = 0 %>
+            <% @issue_slip.documents.each do |article| %>
             <tr>
                 <td><span contenteditable><%= count += 1 %></span></td>
                 <td><span contenteditable><%= article.product.code %></span></td>
                 <td><%= article.product.display_name %></td>
                 <td><span contenteditable><%= article.qty %></span></td>
-                <td><span><%= number_to_currency(article.price, locale: :mk) %></span></td>
-                <td><span><%= number_to_currency(article.price, locale: :mk) %></span></td>
-                <td><span>18</span></td>
-                <td><span><%= number_to_currency((article.price * article.qty), locale: :mk) %></span></td>
             </tr>
             <% end %>
         </tbody>
     </table>
-    <table class="balance">
-        <tr>
-            <th><span>Износ без ДДВ</span></th>
-            <td><span><%= number_to_currency(@invoice.net_price, locale: :mk) %></span></td>
-        </tr>
-        <tr>
-            <th><span>ДДВ 18%</span></th>
-            <td><span><%= number_to_currency(@invoice.vat, locale: :mk) %></span></td>
-        </tr>
-        <tr>
-            <th><span>Вкупен Износ</span></th>
-            <td><span><%= number_to_currency(@invoice.total_price, locale: :mk) %></span></td>
-        </tr>
-    </table>
-    <% if @invoice.received_by.present? %>
-        <p>Примил: <%= @invoice.received_by %></p>    
+
+    <% if @issue_slip.received_by.present? %>
+        <p>Примил: <%= @issue_slip.received_by %></p>    
     <% end %>
-    <% if @invoice.licence_plate.present? %>
-        <p>Рег број: <%= @invoice.licence_plate %></p>    
+    <% if @issue_slip.licence_plate.present? %>
+        <p>Рег број: <%= @issue_slip.licence_plate %></p>    
     <% end %>
 </article>

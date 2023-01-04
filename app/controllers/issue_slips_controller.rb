@@ -22,6 +22,16 @@ class IssueSlipsController < ApplicationController
 
   def show
     @issue_slip = IssueSlip.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Испратница №#{params[:id]}",
+               template: 'issue_slips/pdf',
+               layout: 'pdf',
+               formats: [:html],
+               encoding: 'UTF-8'
+      end
+    end
   end
 
   def edit

@@ -24,4 +24,8 @@ class IncomingInvoice < ApplicationRecord
     year = Date.today.strftime('%y')
     self.number = "#{year}#{(invoices_count + 1).to_s.rjust(3, '0')}".to_i
   end
+
+  def formated_date
+    date.strftime('%d.%m.%Y')
+  end
 end
