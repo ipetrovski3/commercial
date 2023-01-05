@@ -91,6 +91,16 @@ export default class extends Controller {
     })
   }
 
+  set_customer_due_days(event) {
+    let customer_id = this.customerTarget.value
+    fetch(`/customers/?customer_id=${customer_id}`, { headers: { accept: "application/json" } })
+    .then(response => response.json())
+    .then((data) => {
+      document.getElementById('invoice_due_days').value = data.due
+    })
+
+  }
+
 
 }
 

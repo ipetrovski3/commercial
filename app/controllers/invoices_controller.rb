@@ -62,6 +62,7 @@ class InvoicesController < ApplicationController
             :number,
             :received_by,
             :licence_plate,
+            :due_days,
             documents_attributes: %i[id product_id qty price _destroy]
           )
   end

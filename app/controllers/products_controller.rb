@@ -21,7 +21,6 @@ class ProductsController < ApplicationController
                 end
   end
 
-
   def show; end
 
   def new
@@ -52,7 +51,6 @@ class ProductsController < ApplicationController
     end
   end
 
-
   def destroy
     @product.destroy
 
@@ -75,7 +73,9 @@ class ProductsController < ApplicationController
   end
 
   def invoiced
-    @products = Product.where('dimension ILIKE ?', "%#{params[:q]}%").or(Product.where(location: params[:q]))
+    @products = Product.where('dimension ILIKE ?', "%#{params[:q]}%")
+                       .or(Product.where(location: params[:q]))
+                       .or(Product.where('name ILIKE ?', "%#{params[:q]}%"))
     render layout: false
   end
 
