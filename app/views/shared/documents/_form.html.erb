@@ -21,7 +21,7 @@
       <%= f.text_field :licence_plate, placeholder: 'Рег број на возило', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-56 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
     </div>
   <% end %>
-  <%= unless controller_name == 'incoming_invoices' %>
+  <% unless controller_name == 'incoming_invoices' %>
     <div class="mt-3 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
       <%= f.label 'Валута', class:'' %>
       <%= f.number_field :due_days, placeholder: 'Примил Име и Презиме', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-16 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
