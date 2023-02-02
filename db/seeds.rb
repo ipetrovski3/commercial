@@ -59,9 +59,8 @@ end
 
 CSV.foreach('lib/seeds/igor.csv', headers: true) do |row|
   pattern = find_or_create_pattern_and_brand(row[4], row[3], row[5])
-
-  product = Product.find_by(name: "#{pattern.brand.name} #{pattern.name}")
-  p product
+  location = [row[0], row[1], row[2]].join('')
+  product = Product.find_by(name: "#{pattern.brand.name} #{pattern.name}", location: location)
   if product.present?
     ProductWarehouse.create!(
       product: product,
