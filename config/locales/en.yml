@@ -30,8 +30,31 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  name: 'Назив'
+  retail_price: 'Продажна Цена'
+  brand: 'Бренд'
+  pattern: 'Модел'
   activerecord:
+    errors:
+      models:
+        invoice:
+          attributes:
+            documents:
+              blank: 'Немаш внесено производи'
+            number:
+              blank: 'Немаш внесено број'
+              taken: "Веќе постои фактура со број %{value}"
+            customer:
+              required: 'Немаш внесено клиент'
+        incoming_invoice:
+          attributes:
+            documents:
+              blank: 'Немаш внесено производи'
+            number:
+              blank: 'Немаш внесено број'
+              taken: "Веќе постои влезна фактура со број %{value}"
+            customer:
+              required: 'Немаш внесено клиент'
     attributes:
       pattern:
         season:
@@ -53,6 +76,10 @@ en:
       product:
         name: Назив
         retail_price: Продажна цена
+        brand: 'Бренд'
+        pattern: 'Модел'
+        stock: 'Залиха'
+        vat: 'Данок'
       hotel:
         with_wheels: Со Бандажи
 

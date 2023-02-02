@@ -22,4 +22,5 @@ module ProductsHelper
   def dimensions
     TireDimension.all.map { |d| [d.dimension, d.dimension] }
   end
+
 end

@@ -28,9 +28,11 @@
                   <th scope="col" class="text-sm font-medium w-4 text-gray-900 px-6 py-4 text-left">
                     Продажна цена
                   </th>
+                  <% Warehouse.each do |w| %>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Залиха
+                    <%= w.name %>
                   </th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody>

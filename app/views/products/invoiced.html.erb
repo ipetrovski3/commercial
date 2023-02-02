@@ -1,5 +1,5 @@
 <% @products.each do |p| %>
   <li class="hover:bg-sky-300 p-2" role="option" data-autocomplete-price="<%= p.retail_price %>" data-autocomplete-value="<%= p.id %>" data-autocomplete-label="<%= p.display_name %>">
-    <%= p.display_name %>
+    <%= "#{p.display_name}   |    Залиха: #{p.summed_stock}" %>
   </li>
 <% end %>

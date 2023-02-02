@@ -39,6 +39,7 @@ gem 'wkhtmltopdf-binary'
 gem 'requestjs-rails'
 
 gem 'pagy'
+gem "paranoia", "~> 2.2"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

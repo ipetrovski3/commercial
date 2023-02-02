@@ -1,7 +1,7 @@
 
 <%= form_with(model: @tire, class: "mt-8", data: { turbo: false }) do |form| %>
 <div class="mx-auto max-w-lg">
-  <div class="grid grid-cols-3 divide-x">
+  <div class="">
     <div data-controller="autocomplete" data-autocomplete-url-value="<%= dimensions_products_tires_path %>" role="combobox">
       <input type="text" id="dimension_input" placeholder="Димензија" class="block border border-gray-200 w-full rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" data-autocomplete-target="input"/>
         <%= form.hidden_field :dimension,  data: { autocomplete_target: 'hidden' } %>
@@ -9,6 +9,13 @@
     </div>
   </div>
 </div>
+  <div class="py-1">
+    <%= form.label :stock, class: "px-1 text-sm text-gray-600" %>
+    <%= form.number_field :stock, class: "text-md block px-3 py-2 rounded-lg w-16
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" %>
+    <%= form.label :vat %>
+    <%= form.select :vat, options_for_select(Product.vats) %>
+  </div>
   <div class="py-1">
     <%= form.label :retail_price, class: "px-1 text-sm text-gray-600" %>
     <%= form.number_field :retail_price, class: "text-md block px-3 py-2 rounded-lg w-full

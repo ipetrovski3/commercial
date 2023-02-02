@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_28_192956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
     t.datetime "updated_at", null: false
     t.integer "customer_type", default: 0
     t.string "email"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_customers_on_deleted_at"
   end
 
   create_table "documented_products", force: :cascade do |t|
@@ -75,7 +77,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
     t.float "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "warehouse_id"
     t.index ["customer_id"], name: "index_incoming_invoices_on_customer_id"
+    t.index ["warehouse_id"], name: "index_incoming_invoices_on_warehouse_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -90,7 +94,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "due_days", default: 0
+    t.bigint "warehouse_id"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
+    t.index ["warehouse_id"], name: "index_invoices_on_warehouse_id"
   end
 
   create_table "issue_slips", force: :cascade do |t|
@@ -102,7 +108,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
     t.integer "invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "warehouse_id"
     t.index ["customer_id"], name: "index_issue_slips_on_customer_id"
+    t.index ["warehouse_id"], name: "index_issue_slips_on_warehouse_id"
   end
 
   create_table "patterns", force: :cascade do |t|
@@ -114,17 +122,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
     t.index ["brand_id"], name: "index_patterns_on_brand_id"
   end
 
+  create_table "product_warehouses", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "warehouse_id", null: false
+    t.integer "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_warehouses_on_product_id"
+    t.index ["warehouse_id"], name: "index_product_warehouses_on_warehouse_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "dimension"
     t.string "name"
     t.string "code"
     t.string "location"
-    t.integer "stock", default: 0
     t.string "retail_price"
     t.bigint "pattern_id"
     t.integer "vat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
     t.index ["pattern_id"], name: "index_products_on_pattern_id"
   end
 
@@ -156,13 +175,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_110219) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "warehouses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "brands", "categories"
   add_foreign_key "documented_products", "products"
   add_foreign_key "hotels", "customers"
   add_foreign_key "incoming_invoices", "customers"
   add_foreign_key "invoices", "customers"
+  add_foreign_key "invoices", "warehouses"
   add_foreign_key "issue_slips", "customers"
   add_foreign_key "patterns", "brands"
+  add_foreign_key "product_warehouses", "products"
+  add_foreign_key "product_warehouses", "warehouses"
   add_foreign_key "products", "patterns"
   add_foreign_key "tire_hotels", "hotels"
 end

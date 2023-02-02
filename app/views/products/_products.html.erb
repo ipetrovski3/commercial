@@ -12,8 +12,11 @@
     <td class="text-sm text-gray-900 text-right	 font-light px-6 py-1 whitespace-nowrap">
       <%= number_to_currency(product.retail_price, locale: :mk) %>
     </td>
-    <td class="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-      <%= product.stock %>
-    </td>
+    <% Warehouse.all.each do |w| %>
+      <td class="text-sm text-gray-900 text-right font-light px-6 py-1 whitespace-nowrap">
+        <%= product.stock_per_warehouse(w) %>
+      </td>
+      <% end %>
+    
   </tr>
 <% end %>

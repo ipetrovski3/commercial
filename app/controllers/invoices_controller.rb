@@ -16,7 +16,7 @@ class InvoicesController < ApplicationController
       DocumentsService.new(@invoice).call
       redirect_to invoices_path
     else
-      build_location
+      build_products
       render :new
     end
   end
@@ -24,7 +24,7 @@ class InvoicesController < ApplicationController
   def edit
     @invoice = Invoice.find(params[:id])
     @number = @invoice.number
-    build_location
+    build_products
   end
 
   def update
@@ -33,7 +33,7 @@ class InvoicesController < ApplicationController
       DocumentsService.new(@invoice).call
       redirect_to invoices_path
     else
-      build_location
+      build_products
       render :edit
     end
   end
@@ -63,11 +63,12 @@ class InvoicesController < ApplicationController
             :received_by,
             :licence_plate,
             :due_days,
-            documents_attributes: %i[id product_id qty price _destroy]
+            :warehouse_id,
+            documents_attributes: %i[id product_id qty price total_price _destroy]
           )
   end
 
-  def build_location
+  def build_products
     10.times { @invoice.documents.build }
   end
 end

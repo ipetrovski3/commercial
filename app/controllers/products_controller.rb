@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
       render json: @product
     end
     @products = if params[:location].present?
-                  p = Product.where(location: params[:location]).positive_stock
+                  p = Product.where(location: params[:location])
                   if params[:seasons].present?
                     p.includes(:pattern).where(patterns: { season: params[:seasons] })
                   else
@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
                 elsif params[:seasons].present?
                   Product.includes(:pattern).where(patterns: { season: params[:seasons] })
                 else
-                  Product.positive_stock
+                  Product.all
                 end
   end
 

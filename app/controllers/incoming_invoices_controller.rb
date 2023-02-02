@@ -6,7 +6,7 @@ class IncomingInvoicesController < ApplicationController
   def new
     @incoming_invoice = IncomingInvoice.new
     @number = @incoming_invoice.generate_number
-    60.times { @incoming_invoice.documents.build }
+    products_fields
   end
 
   def create
@@ -17,11 +17,16 @@ class IncomingInvoicesController < ApplicationController
         format.html { redirect_to invoices_path }
       end
     else
+      products_fields
       render :new
     end
   end
 
   private
+
+  def products_fields
+    60.times { @incoming_invoice.documents.build }
+  end
 
   def invoice_params
     params.require(:incoming_invoice)
@@ -29,6 +34,7 @@ class IncomingInvoicesController < ApplicationController
             :customer_id,
             :date,
             :number,
+            :warehouse_id,
             documents_attributes: %i[id product_id qty price _destroy]
           )
   end

@@ -12,17 +12,16 @@ goods.each { |good| Category.create!(name: good, cat_type: 'goods') }
 # m_summer.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 0) }
 # m_winter.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 1) }
 # m_all_season.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 2) }
-Category.create(name: 'Услуги', cat_type: 'service')
-file = File.read('lib/seeds/dimensions.json')
-data_hash = JSON.parse(file).symbolize_keys
-doc_keys = data_hash.keys
+# Category.create(name: 'Услуги', cat_type: 'service')
+# file = File.read('lib/seeds/dimensions.json')
+# data_hash = JSON.parse(file).symbolize_keys
+# doc_keys = data_hash.keys
 
-doc_keys.each do |key|
-  data_hash[key.to_s.to_sym].each do |k|
-    TireDimension.create(dimension: "#{k}R#{key}")
-  end
-end
-
+# doc_keys.each do |key|
+#   data_hash[key.to_s.to_sym].each do |k|
+#     TireDimension.create(dimension: "#{k}R#{key}")
+#   end
+# end
 
 def season_type(season)
   case (season)
@@ -54,20 +53,21 @@ def find_or_create_pattern_and_brand(pattern_name, brand_name, season)
   if pattern.present?
     pattern
   else
-    Pattern.create(name: pattern_name, brand: brand, season: season_type(season))
+    Pattern.create(name: pattern_name, brand:, season: season_type(season))
   end
 end
 
-CSV.foreach('lib/seeds/IGOR PROGRAMA.csv', headers: true) do |row|
+CSV.foreach('lib/seeds/igor.csv', headers: true) do |row|
   pattern = find_or_create_pattern_and_brand(row[4], row[3], row[5])
-
-  p = Product.new
-  p.dimension = "#{row[0]}/#{row[1]}R#{row[2]}"
-  p.stock = row[6]
-  p.pattern = pattern
-  p.retail_price = 0
-  p.save!
-  ProductsService.new(p).call
+  location = [row[0], row[1], row[2]].join('')
+  product = Product.find_by(location: location, pattern: pattern)
+  if product.present?
+    ProductWarehouse.create!(
+      product: product,
+      warehouse: Warehouse.find(row[7].to_i),
+      stock: row[6].to_i
+    )
+  end
 end
 
 puts 'Seeded'

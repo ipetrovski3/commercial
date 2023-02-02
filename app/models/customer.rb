@@ -13,10 +13,12 @@
 #  updated_at :datetime         not null
 #
 class Customer < ApplicationRecord
+  acts_as_paranoid
+
   enum customer_type: %i[company person]
 
-  has_many :invoices, dependent: :destroy
-  has_many :incoming_invoices, dependent: :destroy
+  has_many :invoices
+  has_many :incoming_invoices
 
   def total
     invoices.sum(:total_price)

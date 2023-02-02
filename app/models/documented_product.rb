@@ -16,16 +16,15 @@ class DocumentedProduct < ApplicationRecord
   belongs_to :product
   belongs_to :documentable, polymorphic: true
 
-  before_save :set_total_price, if: -> { price.present? && qty.present? }
+  before_save :set_total_price, unless: -> { documentable_type == 'IssueSlip' }
 
   validates :product_id, presence: true
   validates :qty, presence: true
-  # validates_presence_of :price, unless: -> { documentable_type == 'IssueSlip' }
+
+  validates_presence_of :price, unless: -> { documentable_type == 'IssueSlip' }
   # validates_presence_of :total_price, unless: -> { documentable_type == 'IssueSlip' }
 
-
   scope :tire_sales, -> { where(documentable_type: 'Invoice') }
-
 
   def set_total_price
     self.total_price = price * qty

@@ -1,32 +1,53 @@
 <div data-controller="math" data-math-controller-value="<%= attribute %>">
-<%= form_for document, data: { turbo: false } do |f| %>
-  
-  <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
-    <%= f.label :date, class:'sr-only' %>
-    <%= f.date_field :date, class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-56 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50', data: { math_target: 'dateToday' } %>
-    <%= f.label :number, value: @number, class:'sr-only' %>
-    <%= f.text_field :number, placeholder: 'Број на фактура', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-32 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
-    <%= f.label :customer, class:'sr-only' %>
-    <div class="w-96" data-controller="autocomplete" data-autocomplete-url-value="<%= invoiced_customers_path %>" role="combobox">
-      <input type="text" id="customer_input" placeholder="Клиент" class="block border border-gray-200 w-full rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" data-autocomplete-target="input"/>
-        <%= f.hidden_field :customer_id,  data: { autocomplete_target: 'hidden', math_target: 'customer', action: 'change->math#set_customer_due_days' } %>
-      <ul class="list-group overflow-y-scroll max-h-64 w-1/4 fixed bg-white z-0" data-autocomplete-target="results"></ul>
-    </div>
+  <% if document.errors.any? %>
+  <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5" role="alert">
+    <%= p document.errors.full_messages %>
+    <ul class="list-disc pl-4">
+      <% document.errors.messages.values.flatten.each do |msg| %>
+        <% p msg %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
-  <% if controller_name == 'invoices' %>
-    <div class="mt-3 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
-      <%= f.label :received_by, class:'sr-only' %>
-      <%= f.text_field :received_by, placeholder: 'Примил Име и Презиме', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-56 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
-      <%= f.label :licence_plate, value: @number, class:'sr-only' %>
-      <%= f.text_field :licence_plate, placeholder: 'Рег број на возило', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-56 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+<% end %>
+
+<%= form_for document, data: { turbo: false } do |f| %>
+  <div class="grid grid-cols-2">
+    <div>
+      <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
+        <%= f.label 'Магацин' %>
+        <%= f.collection_select :warehouse_id, Warehouse.all, :id, :name, {}, class:'block border border-gray-200 w-36 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+      </div>
+      <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
+        <%= f.label 'Датум' %>
+        <%= f.date_field :date, class:'block border border-gray-200 w-36 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50', data: { math_target: 'dateToday' } %>
+        <%= f.label :number, value: @number, class:'sr-only' %>
+        <%= f.text_field :number, placeholder: 'Број на фактура', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-32 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+      </div>
+        <div class="w-96" data-controller="autocomplete" data-autocomplete-url-value="<%= invoiced_customers_path %>" role="combobox">
+          <%= f.label 'Клиент' %>
+          <input type="text" id="customer_input" placeholder="Клиент" class="block border border-gray-200 w-64 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" data-autocomplete-target="input"/>
+            <%= f.hidden_field :customer_id,  data: { autocomplete_target: 'hidden', math_target: 'customer', action: 'change->math#set_customer_due_days' } %>
+          <ul class="list-group overflow-y-scroll max-h-64 w-1/4 fixed bg-white z-0" data-autocomplete-target="results"></ul>
+        </div>
+        <% if controller_name == 'invoices' %>
+          <div class="mt-3 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
+            <%= f.label 'Валута', class:'' %>
+            <%= f.number_field :due_days, placeholder: 'Примил Име и Презиме', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-16 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+          </div>
+        <% end %>
     </div>
-  <% end %>
-  <% unless controller_name == 'incoming_invoices' %>
-    <div class="mt-3 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
-      <%= f.label 'Валута', class:'' %>
-      <%= f.number_field :due_days, placeholder: 'Примил Име и Презиме', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-16 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
-    </div>
-  <% end %>
+    <div>
+      <% if controller_name == 'invoices' %>
+        <div class="mt-3 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
+          <%= f.label :received_by, class:'sr-only' %>
+          <%= f.text_field :received_by, placeholder: 'Примил Име и Презиме', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-56 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+          <%= f.label :licence_plate, value: @number, class:'sr-only' %>
+          <%= f.text_field :licence_plate, placeholder: 'Рег број на возило', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-56 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+        </div>
+      <% end %>
+    </div>    
+  </div>
   
   <div class="mt-16 grid grid-cols-3 gap-2">
     <div class="shadow overflow-y-scroll h-96 col-span-2">
