@@ -3,11 +3,17 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="math"
 export default class extends Controller {
-  static targets = ['dateToday', 'qty', 'total', 'price', 'netPrice', 'withOutDDV', 'ddv', 'productInput', 'customer']
-  static values = { controller: String }
+  static targets = ['dateToday', 'qty', 'total', 'price', 'netPrice', 'withOutDDV', 'ddv', 'productInput', 'customer', 'warehouse']
+  static values = { 
+    controller: String,
+    doc: String
+  }
 
   connect() {
     this.dateTodayTarget.value = new Date().toLocaleDateString('en-CA')
+    let warehouse = this.warehouseTarget.value
+    let doc = this.controllerValue
+    this.warehouse_fecth(warehouse, doc)
     let collection = this.productInputTargets
     let customer = this.customerTarget
 
@@ -31,6 +37,20 @@ export default class extends Controller {
           document.getElementById(`input_${row}`).value = (data.dimension + ' ' +  data.name)
         })
       }
+    })
+  }
+
+  set_warehouse(event) {
+    let warehouse_id = event.target.value
+    let doc = this.controllerValue
+    this.warehouse_fecth(warehouse_id, doc)
+  }
+
+  warehouse_fecth(warehouse_id, doc) {
+    fetch(`/document?warehouse_id=${warehouse_id}&doc=${doc}`, { headers: { accept: "application/json" } })
+    .then(response => response.json())
+    .then((data) => {
+      document.getElementById('invoice_number').value = data.document_number
     })
   }
 
@@ -81,7 +101,6 @@ export default class extends Controller {
   }
 
   set_price(event) {
-    console.log(event.target.value)
     let price_id = this.result(event.target.id)
     let price_field = `${this.controllerValue}_documents_attributes_${price_id}_price`
     fetch(`/products/?product_id=${event.target.value}`, { headers: { accept: "application/json" } })

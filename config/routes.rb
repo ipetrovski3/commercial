@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/document', to: 'documents#document_number_by_warehouse'
+
   namespace :products do
     resources :tires do
       collection do

@@ -16,7 +16,9 @@
     <div>
       <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
         <%= f.label 'Магацин' %>
-        <%= f.collection_select :warehouse_id, Warehouse.all, :id, :name, {}, class:'block border border-gray-200 w-36 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+        <%= f.collection_select :warehouse_id, Warehouse.all, :id, :name, {}, class:'block border border-gray-200 w-36 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50', 
+          data: { action: 'change->math#set_warehouse', math_target: 'warehouse' }
+         %>
       </div>
       <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
         <%= f.label 'Датум' %>

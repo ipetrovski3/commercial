@@ -29,7 +29,6 @@ class Invoice < ApplicationRecord
   # validates :customer, presence: true
 
   validates_presence_of :documents, in: :documents_attributes
-  
 
   def generate_invoice_number
     invoices_count = Invoice.count

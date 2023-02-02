@@ -1,6 +1,6 @@
 require 'csv'
-goods = ['Гуми', 'Моторно Масло', 'Козметика', 'Вулканизерска Опрема']
-goods.each { |good| Category.create!(name: good, cat_type: 'goods') }
+# goods = ['Гуми', 'Моторно Масло', 'Козметика', 'Вулканизерска Опрема']
+# goods.each { |good| Category.create!(name: good, cat_type: 'goods') }
 
 # brands = %w[Michelin Dunlop Goodyear Sava Kelly Fulda Sailun Pirelli Tigar]
 # brands.each { |brand| Brand.create!(name: brand, category: Category.first) }
@@ -59,8 +59,9 @@ end
 
 CSV.foreach('lib/seeds/igor.csv', headers: true) do |row|
   pattern = find_or_create_pattern_and_brand(row[4], row[3], row[5])
-  location = [row[0], row[1], row[2]].join('')
-  product = Product.find_by(location: location, pattern: pattern)
+
+  product = Product.find_by(name: "#{pattern.brand.name} #{pattern.name}")
+  p product
   if product.present?
     ProductWarehouse.create!(
       product: product,
