@@ -2,67 +2,79 @@
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Products</h1>
-    <%= link_to 'Креирај нова гума', new_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
 
-  <div id="products" class="min-w-full">
-    <div class="flex flex-col">
-      <%= form_with url: :products, method: :get do |f| %>
-        <%= f.text_field :location, class:'w-32 block border border-gray-200 rounded px-3 py-2 leading-5 text-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
-        <% seasons = Pattern.seasons.keys %>
-        
-        <% seasons.each do |season| %>
-          <%= f.check_box :seasons, { multiple: true, class:'border border-gray-300 rounded h-4 w-4 text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 mb-4 mt-4' }, season, nil %>
-          <%= f.label "seasons_#{season}", t(season), class: 'mb-4' %>
-        <% end %>
-        <div>
-          <% Brand.where(category_id: 17).each do |b| %>
-            <%= f.check_box :brands, { multiple: true, class:'border border-gray-300 rounded h-4 w-4 text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 mb-4 mt-4' }%>
-            <%= f.label "#{b.name}" %>
+  <div class="grid grid-rows-2 grid-cols-4 grid-flow-col">
+    <div class="col-span-1 row-span-3">
+        <%= form_with url: :products, method: :get do |f| %>
+          <%= f.text_field :location, class:'w-32 block border border-gray-200 rounded px-3 py-2 leading-5 text-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+          <% seasons = Pattern.seasons.keys %>
+          <ul class="bg-white my-3 text-gray-900 py-2 mr-2 overflow-scroll">
+          <% seasons.each do |season| %>
+            <li class=" pl-2 ">
+              <%= f.check_box :seasons, { multiple: true, class:'border border-gray-300 rounded text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' }, season, nil %>
+              <%= f.label "seasons_#{season}", t(season), class: 'mb-4' %>
+            </li>
           <% end %>
-        </div>
-        
-        <div>
-          <%= f.submit 'Пребарај по локација', class:' mb-4 inline-flex justify-center items-center space-x-2 rounded border font-semibold focus:outline-none px-2 py-1 leading-5 text-sm border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700' %>
-        </div>
-      <% end %>
-      
-      <div class="overflow-x-auto overflow-y-scroll h-screen sm:-mx-6 lg:-mx-8">
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
-            <table class="min-w-full">
-              <thead class="bg-white border-b">
-                <tr>
-                  <th scope="col" class="text-sm font-medium w-5 text-gray-900 px-6 py-4 text-left">
-                    #
-                  </th>
-                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Назив
-                  </th>
-                  <th scope="col" class="text-sm font-medium w-1/6 text-gray-900 px-6 py-4 text-left">
-                    Сезона
-                  </th>
-                  <th scope="col" class="text-sm font-medium w-4 text-gray-900 px-6 py-4 text-left">
-                    Продажна цена
-                  </th>
-                  <% Warehouse.all.each do |w| %>
-                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    <%= w.name %>
-                  </th>
-                  <% end %>
-                </tr>
-              </thead>
-              <tbody>
-              <%= turbo_frame_tag "products" do %>
-                <%= render 'products/products', products: @products %>  
+          </ul>
+          <div>
+            <ul class="bg-white my-3 py-2 text-gray-900 mr-2 overflow-scroll h-72">
+              <% brands.each do |b| %>
+                <li class=" pl-2 ">
+                  <%= f.check_box :brands, { multiple: true, class:'border border-gray-300 rounded text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' }, b.id %>
+                  <%= f.label "#{b.name}", for: "brands_#{b.id}" %>
+                </li>
               <% end %>
-              </tbody>
-            </table>
+            </ul>
+          </div>
+          
+          <div>
+            <%= f.submit 'Пребарај', class:' mb-4 inline-flex justify-center items-center space-x-2 rounded border font-semibold focus:outline-none px-2 py-2 leading-5 text-sm border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700' %>
+          </div>
+        <% end %>
+    </div>
+    <div id="products" class="col-span-3">
+        <div class="overflow-x-auto overflow-y-scroll h-screen sm:-mx-6 lg:-mx-8">
+          <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full">
+                <thead class="bg-white border-b">
+                  <tr>
+                    <th scope="col" class="text-sm font-medium w-5 text-gray-900 px-6 py-4 text-left">
+                      #
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                      Назив
+                    </th>
+                    <th scope="col" class="text-sm font-medium w-1/6 text-gray-900 px-6 py-4 text-left">
+                      Сезона
+                    </th>
+                    <th scope="col" class="text-sm font-medium w-4 text-gray-900 px-6 py-4 text-left">
+                      Продажна цена
+                    </th>
+                    <% Warehouse.all.each do |w| %>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                      <%= w.name %>
+                    </th>
+                    <% end %>
+                  </tr>
+                </thead>
+                <tbody>
+                <%= turbo_frame_tag "products" do %>
+                  <%= render 'products/products', products: @products %>  
+                <% end %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+

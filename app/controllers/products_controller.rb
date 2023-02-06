@@ -7,18 +7,7 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:product_id])
       render json: @product
     end
-    @products = if params[:location].present?
-                  p = Product.where(location: params[:location])
-                  if params[:seasons].present?
-                    p.includes(:pattern).where(patterns: { season: params[:seasons] })
-                  else
-                    p
-                  end
-                elsif params[:seasons].present?
-                  Product.includes(:pattern).where(patterns: { season: params[:seasons] })
-                else
-                  Product.all
-                end
+    @products = ProductsQuery.new(params).filter
   end
 
   def show; end

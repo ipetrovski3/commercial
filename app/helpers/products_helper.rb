@@ -23,4 +23,9 @@ module ProductsHelper
     TireDimension.all.map { |d| [d.dimension, d.dimension] }
   end
 
+  # sort by name
+  def brands
+    category = Category.find_by(name: 'Гуми')
+    category.brands.order(:name)
+  end
 end
