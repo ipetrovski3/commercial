@@ -31,7 +31,7 @@ class ProductsQuery
     return resources unless params[:brands].present?
 
     return resources if params[:brands].all?('0')
-  
+
     resources.includes(:pattern).where(patterns: { brand_id: params[:brands] })
   end
 end

@@ -19,6 +19,7 @@ class Invoice < ApplicationRecord
   VAT_CALCULATOR = 1.18
 
   belongs_to :customer
+  belongs_to :warehouse
   has_many :documents, as: :documentable, class_name: 'DocumentedProduct', dependent: :destroy
   has_many :products, through: :documents, foreign_key: :product_id
 

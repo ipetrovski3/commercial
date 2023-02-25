@@ -15,7 +15,6 @@
 #  updated_at   :datetime         not null
 #
 class Product < ApplicationRecord
-
   acts_as_paranoid
 
   belongs_to :pattern
