@@ -58,9 +58,6 @@ class DocumentsService
   end
 
   def check_for_negative_stock(product_warehouse, product)
-    
-    binding.remote_pry
-    
     product_stock = product_warehouse.stock
     return unless product_stock.negative?
 
