@@ -6,7 +6,7 @@
   <div class="grid grid-rows-2 grid-cols-4 grid-flow-col">
     <div class="col-span-1 row-span-3">
         <%= form_with url: :products, method: :get do |f| %>
-          <%= f.text_field :location, class:'w-32 block border border-gray-200 rounded px-3 py-2 leading-5 text-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+          <%= f.text_field :location, value: @query, class:'w-32 block border border-gray-200 rounded px-3 py-2 leading-5 text-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
           <% seasons = Pattern.seasons.keys %>
           <ul class="bg-white my-3 text-gray-900 py-2 mr-2 overflow-scroll">
           <% seasons.each do |season| %>

@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
       render json: @product
     end
     @products = ProductsQuery.new(params).filter
+    @query = params[:location] || ''
   end
 
   def show; end
