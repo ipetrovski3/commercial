@@ -11,7 +11,8 @@
           <ul class="bg-white my-3 text-gray-900 py-2 mr-2 overflow-scroll">
           <% seasons.each do |season| %>
             <li class=" pl-2 ">
-              <%= f.check_box :seasons, { multiple: true, class:'border border-gray-300 rounded text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' }, season, nil %>
+              <% check = @seasons.any?(season) %>
+              <%= f.check_box :seasons, {checked: check, multiple: true, class:'border border-gray-300 rounded text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' }, season, nil %>
               <%= f.label "seasons_#{season}", t(season), class: 'mb-4' %>
             </li>
           <% end %>
@@ -20,7 +21,8 @@
             <ul class="bg-white my-3 py-2 text-gray-900 mr-2 overflow-scroll h-72">
               <% brands.each do |b| %>
                 <li class=" pl-2 ">
-                  <%= f.check_box :brands, { multiple: true, class:'border border-gray-300 rounded text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' }, b.id %>
+                  <% brand_check = @brands.any?(b.id.to_s) %>
+                  <%= f.check_box :brands, { checked: brand_check, multiple: true, class:'border border-gray-300 rounded text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' }, b.id %>
                   <%= f.label "#{b.name}", for: "brands_#{b.id}" %>
                 </li>
               <% end %>

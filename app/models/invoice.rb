@@ -20,21 +20,22 @@ class Invoice < ApplicationRecord
 
   belongs_to :customer
   belongs_to :warehouse
-  has_many :documents, as: :documentable, class_name: 'DocumentedProduct', dependent: :destroy
+  has_many :documents, as: :documentable, class_name: 'DocumentedProduct', dependent: :nullify
   has_many :products, through: :documents, foreign_key: :product_id
 
   accepts_nested_attributes_for :documents, allow_destroy: true, reject_if: :all_blank
 
-  validates :number, presence: true, uniqueness: true
   validates :date, presence: true
   # validates :customer, presence: true
 
   validates_presence_of :documents, in: :documents_attributes
 
   def generate_invoice_number
-    invoices_count = Invoice.count
+    warehouse = Warehouse.first
+    invoices_count = warehouse.invoices.last.number + 1
+
     year = Date.today.strftime('%y')
-    self.number = "#{year}#{(invoices_count + 1).to_s.rjust(3, '0')}".to_i
+    self.number = "#{warehouse.id}#{year}#{(invoices_count + 1).to_s.rjust(3, '0')}".to_i
   end
 
   def due_date

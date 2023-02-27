@@ -7,8 +7,11 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:product_id])
       render json: @product
     end
+    # binding.remote_pry
     @products = ProductsQuery.new(params).filter
     @query = params[:location] || ''
+    @brands = params[:brands] || []
+    @seasons = params[:seasons] || []
   end
 
   def show; end

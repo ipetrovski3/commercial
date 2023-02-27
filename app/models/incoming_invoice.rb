@@ -14,13 +14,15 @@
 #
 class IncomingInvoice < ApplicationRecord
   belongs_to :customer
+  belongs_to :warehouse
   has_many :documents, as: :documentable, class_name: 'DocumentedProduct', dependent: :destroy
   has_many :products, through: :documents, foreign_key: :product_id
 
   accepts_nested_attributes_for :documents, allow_destroy: true, reject_if: :all_blank
 
   def generate_number
-    invoices_count = IncomingInvoice.count
+    warehouse = Warehouse.first
+    invoices_count = warehouse.incoming_invoices.count
     year = Date.today.strftime('%y')
     self.number = "#{year}#{(invoices_count + 1).to_s.rjust(3, '0')}".to_i
   end

@@ -56,5 +56,4 @@ class Product < ApplicationRecord
   def stockable?
     brand.category.goods?
   end
-
 end

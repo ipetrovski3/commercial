@@ -1,27 +1,27 @@
 require 'csv'
-# goods = ['Гуми', 'Моторно Масло', 'Козметика', 'Вулканизерска Опрема']
-# goods.each { |good| Category.create!(name: good, cat_type: 'goods') }
+goods = ['Гуми', 'Моторно Масло', 'Козметика', 'Вулканизерска Опрема']
+goods.each { |good| Category.create!(name: good, cat_type: 'goods') }
 
-# brands = %w[Michelin Dunlop Goodyear Sava Kelly Fulda Sailun Pirelli Tigar]
-# brands.each { |brand| Brand.create!(name: brand, category: Category.first) }
+brands = %w[Michelin Dunlop Goodyear Sava Kelly Fulda Sailun Pirelli Tigar]
+brands.each { |brand| Brand.create!(name: brand, category: Category.first) }
 
-# m_summer = ['Pilot Sport 3', 'Pilot Sport 4', 'Energy Saver', 'Primacy 3', 'Primacy 4']
-# m_winter = ['Alpin 5', 'Alpin 6', 'Alpin 7', 'Alpin 8', 'Alpin 9']
-# m_all_season = ['Cross Climate']
+m_summer = ['Pilot Sport 3', 'Pilot Sport 4', 'Energy Saver', 'Primacy 3', 'Primacy 4']
+m_winter = ['Alpin 5', 'Alpin 6', 'Alpin 7', 'Alpin 8', 'Alpin 9']
+m_all_season = ['Cross Climate']
 
-# m_summer.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 0) }
-# m_winter.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 1) }
-# m_all_season.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 2) }
-# Category.create(name: 'Услуги', cat_type: 'service')
-# file = File.read('lib/seeds/dimensions.json')
-# data_hash = JSON.parse(file).symbolize_keys
-# doc_keys = data_hash.keys
+m_summer.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 0) }
+m_winter.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 1) }
+m_all_season.each { |pattern| Pattern.create(name: pattern, brand_id: 1, season: 2) }
+Category.create(name: 'Услуги', cat_type: 'service')
+file = File.read('lib/seeds/dimensions.json')
+data_hash = JSON.parse(file).symbolize_keys
+doc_keys = data_hash.keys
 
-# doc_keys.each do |key|
-#   data_hash[key.to_s.to_sym].each do |k|
-#     TireDimension.create(dimension: "#{k}R#{key}")
-#   end
-# end
+doc_keys.each do |key|
+  data_hash[key.to_s.to_sym].each do |k|
+    TireDimension.create(dimension: "#{k}R#{key}")
+  end
+end
 
 def season_type(season)
   case (season)

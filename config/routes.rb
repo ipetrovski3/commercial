@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     resources :others
   end
 
+
+  resources :warehouses, only: %i[index destroy]
+
   devise_for :users
   resources :invoices
   resources :categories

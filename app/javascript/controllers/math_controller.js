@@ -13,7 +13,7 @@ export default class extends Controller {
     this.dateTodayTarget.value = new Date().toLocaleDateString('en-CA')
     let warehouse = this.warehouseTarget.value
     let doc = this.controllerValue
-    this.warehouse_fecth(warehouse, doc)
+    this.warehouse_fetch(warehouse, doc)
     let collection = this.productInputTargets
     let customer = this.customerTarget
 
@@ -41,16 +41,18 @@ export default class extends Controller {
   }
 
   set_warehouse(event) {
+    console.log(event.target.value)
     let warehouse_id = event.target.value
     let doc = this.controllerValue
-    this.warehouse_fecth(warehouse_id, doc)
+    this.warehouse_fetch(warehouse_id, doc)
   }
 
-  warehouse_fecth(warehouse_id, doc) {
+  warehouse_fetch(warehouse_id, doc) {
     fetch(`/document?warehouse_id=${warehouse_id}&doc=${doc}`, { headers: { accept: "application/json" } })
     .then(response => response.json())
     .then((data) => {
-      document.getElementById('invoice_number').value = data.document_number
+      let element_id = `${doc}_number`
+      document.getElementById(element_id).value = data.document_number
     })
   }
 

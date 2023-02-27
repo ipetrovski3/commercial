@@ -23,8 +23,8 @@
       <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-2">
         <%= f.label 'Датум' %>
         <%= f.date_field :date, class:'block border border-gray-200 w-36 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50', data: { math_target: 'dateToday' } %>
-        <%= f.label :number, value: @number, class:'sr-only' %>
-        <%= f.text_field :number, placeholder: 'Број на фактура', class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-32 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
+        <%= f.label :number, class:'sr-only' %>
+        <%= f.text_field :number, class:'block border border-gray-200 rounded px-3 py-2 leading-6 w-32 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50' %>
       </div>
         <div class="w-96" data-controller="autocomplete" data-autocomplete-url-value="<%= invoiced_customers_path %>" role="combobox">
           <%= f.label 'Клиент' %>

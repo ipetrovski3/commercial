@@ -42,6 +42,7 @@ class DocumentsService
   end
 
   def increase_product_stock
+    
     document.documents.each do |document|
       next unless document.product.stockable?
 
@@ -63,5 +64,9 @@ class DocumentsService
 
     product_warehouse.update(stock: 0)
     product_warehouse.next.update(stock: product_warehouse.next.stock + product_stock)
+  end
+
+  def only_stockable_products
+    document.documents.select { |document| document.product.stockable? }
   end
 end

@@ -13,6 +13,7 @@ module Products
     def create
       @tire = Product.new(tire_params)
       if @tire.save
+        ProductsService.new(@tire).call
         redirect_to products_path
       else
         render :new
@@ -40,7 +41,7 @@ module Products
     private
 
     def tire_params
-      params.require(:product).permit(:name, :price, :location, :stock, :pattern_id)
+      params.permit(:name, :price, :location, :pattern_id, :dimension)
     end
   end
 end
