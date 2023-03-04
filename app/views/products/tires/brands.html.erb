@@ -1,8 +1,8 @@
-<% @dimensions.each do |dimension| %>
+<% @brands.each do |dimension| %>
   <li class="hover:bg-sky-300 p-2" role="option" data-autocomplete-value="<%= dimension.dimension %>" data-autocomplete-label="<%= dimension.dimension %>">
     <%= dimension.dimension %>
   </li>
-<% end %>
-  <li class="hover:bg-sky-300 p-2" role="option" data-autocomplete-value="">
+   <li class="hover:bg-sky-300 p-2" role="option" data-autocomplete-value="<%= dimension.dimension %>" data-autocomplete-label="<%= dimension.dimension %>">
     Додај нов бренд
   </li>
+<% end %>

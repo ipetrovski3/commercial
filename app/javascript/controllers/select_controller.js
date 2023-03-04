@@ -5,7 +5,6 @@ import { get } from "@rails/request.js";
 export default class extends Controller {
   static targets = ["patternSelect"]
   change(event) {
-    console.log(this.patternSelectTarget)
     let brand_value = event.target.value
     let target = this.patternSelectTarget.id
 

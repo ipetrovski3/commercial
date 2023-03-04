@@ -35,6 +35,7 @@ class IncomingInvoicesController < ApplicationController
             :date,
             :number,
             :warehouse_id,
+            :incoming_number,
             documents_attributes: %i[id product_id qty price _destroy]
           )
   end
