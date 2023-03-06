@@ -20,8 +20,7 @@ class DocumentsController < ApplicationController
 
     return "#{warehouse_id}#{current_year}#{1.to_s.rjust(3, '0')}".to_i if last_doc.nil?
 
-    puts "========================#{last_doc}"
-    last_doc_year = last_doc.to_s[1..2]
+    last_doc_year = last_doc.number.to_s[1..2]
     if last_doc_year != current_year
       "#{warehouse_id}#{current_year}#{1.to_s.rjust(3, '0')}".to_i
     else

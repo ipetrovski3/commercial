@@ -30,7 +30,7 @@
         <%= f.label 'Клиент' %>
         <input type="text" id="customer_input" placeholder="Клиент" class="block border border-gray-200 w-64 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" data-autocomplete-target="input"/>
           <%= f.hidden_field :customer_id,  data: { autocomplete_target: 'hidden', math_target: 'customer', action: 'change->math#set_customer_due_days' } %>
-        <ul class="list-group overflow-y-scroll max-h-64 w-1/4 fixed bg-white z-0" data-autocomplete-target="results"></ul>
+        <ul class="list-group overflow-y-scroll max-h-64 w-1/4 fixed bg-white z-1" data-autocomplete-target="results"></ul>
       </div>
 
       <% if controller_name == 'incoming_invoices' %>

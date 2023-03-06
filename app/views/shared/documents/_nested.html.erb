@@ -33,7 +33,7 @@
             <td data-controller="autocomplete" data-autocomplete-url-value="<%= invoiced_products_path %>" role="combobox">
                 <input type="text" id=<%= "input_#{counter}" %> class="w-full block border border-gray-200 rounded px-3 py-2 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" data-autocomplete-target="input"/>
                 <%= product_form.hidden_field :product_id, data: { autocomplete_target: 'hidden', math_target: 'productInput', row: counter, action:'change->math#set_price'} %>
-                <ul class="list-group overflow-y-scroll max-h-64 w-96 relative bg-white z-0" data-autocomplete-target="results"></ul>
+                <ul class="list-group overflow-y-scroll max-h-64 w-96 bg-white z-50" data-autocomplete-target="results"></ul>
             </td>
             <td class="p-1 text-center">
               <%= product_form.text_field :qty,

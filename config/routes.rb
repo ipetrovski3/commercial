@@ -18,12 +18,13 @@ Rails.application.routes.draw do
     resources :tires do
       collection do
         get :dimensions
+        get :brands
+        get :patterns
       end
     end
     resources :services
     resources :others
   end
-
 
   resources :warehouses, only: %i[index destroy]
 
@@ -32,6 +33,8 @@ Rails.application.routes.draw do
   resources :categories
   resources :incoming_invoices
   resources :issue_slips
+  resources :brands
+  resources :patterns
 
   resources :customers do
     collection do

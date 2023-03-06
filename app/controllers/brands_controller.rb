@@ -10,9 +10,24 @@ class BrandsController < ApplicationController
   def create
     @brand = Brand.new(brand_params)
     if @brand.save
+      respond_to do |format|
+        format.turbo_stream
+      end
       redirect_to brands_path
     else
       render :new
     end
+  end
+
+  private
+
+  def brand_params
+    params.require(:brand).permit(:name).merge(category)
+  end
+
+  def category
+    {
+      category: Category.find_by(name: 'Гуми')
+    }
   end
 end

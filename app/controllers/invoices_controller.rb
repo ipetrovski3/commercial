@@ -5,7 +5,7 @@ class InvoicesController < ApplicationController
 
   def new
     @invoice = Invoice.new
-    @number = @invoice.generate_invoice_number
+    # @number = @invoice.generate_invoice_number
     10.times { @invoice.documents.build }
   end
 

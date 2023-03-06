@@ -30,6 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  enums:
+    seasons:
+      summer: 'Летни'
+      winter: 'Зимски'
+      all_season: 'Сите Сезони'
   name: 'Назив'
   retail_price: 'Продажна Цена'
   brand: 'Бренд'
@@ -57,7 +62,7 @@ en:
               required: 'Немаш внесено клиент'
     attributes:
       pattern:
-        season:
+        seasons:
           summer: "Летни"
           winter: "Зимски"
           all_season: "Сите сезони"

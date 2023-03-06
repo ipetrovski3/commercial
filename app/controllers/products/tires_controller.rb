@@ -12,6 +12,7 @@ module Products
 
     def create
       @tire = Product.new(tire_params)
+
       if @tire.save
         ProductsService.new(@tire).call
         redirect_to products_path
@@ -38,10 +39,20 @@ module Products
       render layout: false
     end
 
+    def brands
+      @brands = Brand.where('name ILIKE ?', "%#{params[:q]}%")
+      render layout: false
+    end
+
+    def patterns
+      @patterns = Pattern.where('name ILIKE ?', "%#{params[:q]}%")
+      render layout: false
+    end
+
     private
 
     def tire_params
-      params.permit(:name, :price, :location, :pattern_id, :dimension)
+      params.permit(:name, :retail_price, :location, :pattern_id, :dimension, :vat)
     end
   end
 end
