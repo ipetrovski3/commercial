@@ -14,11 +14,30 @@ class IncomingInvoicesController < ApplicationController
     if @incoming_invoice.save
       DocumentsService.new(@incoming_invoice).call
       respond_to do |format|
-        format.html { redirect_to invoices_path }
+        format.html { redirect_to incoming_invoices_path }
       end
     else
       products_fields
       render :new
+    end
+  end
+
+  def edit
+    @incoming_invoice = IncomingInvoice.find(params[:id])
+    @number = @incoming_invoice.number
+    products_fields
+  end
+
+  def update
+    @incoming_invoice = IncomingInvoice.find(params[:id])
+    if @incoming_invoice.update(invoice_params)
+      DocumentsService.new(@incoming_invoice).call
+      respond_to do |format|
+        format.html { redirect_to incoming_invoices_path }
+      end
+    else
+      products_fields
+      render :edit
     end
   end
 
