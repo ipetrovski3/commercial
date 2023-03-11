@@ -18,6 +18,6 @@ class Pattern < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :brand_id }
 
   def self.translated_seasons_for_select
-    seasons.map { |k, v| [I18n.t("enums.seasons.#{k}"), v] }
+    seasons.map { |k, _v| [I18n.t("enums.seasons.#{k}"), k] }
   end
 end

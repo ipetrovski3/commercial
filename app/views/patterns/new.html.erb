@@ -27,7 +27,7 @@
             <div class="p-6 space-y-6">
                 <div class="flex flex-col space-y-2">
                     <%= f.label 'Сезона', class: "text-gray-600" %>
-                    <%= f.select :season, Pattern.translated_seasons_for_select  %>
+                    <%= f.select :season, options_for_select(Pattern.translated_seasons_for_select)  %>
                 </div>
             </div>
 
