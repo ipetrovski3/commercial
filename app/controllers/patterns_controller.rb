@@ -23,6 +23,6 @@ class PatternsController < ApplicationController
   private
 
   def pattern_params
-    params.require(:pattern).permit(:name, :brand_id)
+    params.require(:pattern).permit(:name, :brand_id, :season)
   end
 end
