@@ -20,6 +20,9 @@ class IncomingInvoice < ApplicationRecord
 
   accepts_nested_attributes_for :documents, allow_destroy: true, reject_if: :all_blank
 
+  validates :number, presence: true, uniqueness: true
+  validates :date, presence: true
+
   def generate_number
     warehouse = Warehouse.first
     invoices_count = warehouse.incoming_invoices.count
