@@ -1,0 +1,2 @@
+module ApplePayHelper
+end
