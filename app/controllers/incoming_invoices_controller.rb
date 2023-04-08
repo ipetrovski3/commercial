@@ -22,6 +22,10 @@ class IncomingInvoicesController < ApplicationController
     end
   end
 
+  def show
+    @incoming_invoice = IncomingInvoice.find(params[:id])
+  end
+
   def edit
     @incoming_invoice = IncomingInvoice.find(params[:id])
     @number = @incoming_invoice.number

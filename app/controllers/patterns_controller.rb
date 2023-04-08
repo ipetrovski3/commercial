@@ -6,6 +6,7 @@ class PatternsController < ApplicationController
 
   def new
     @pattern = Pattern.new
+    @brands = Category.find(session[:category_id]).brands
   end
 
   def create

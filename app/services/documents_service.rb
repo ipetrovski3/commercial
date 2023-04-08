@@ -42,7 +42,6 @@ class DocumentsService
   end
 
   def increase_product_stock
-    
     document.documents.each do |document|
       next unless document.product.stockable?
 

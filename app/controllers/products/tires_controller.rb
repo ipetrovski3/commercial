@@ -1,6 +1,8 @@
 module Products
   class TiresController < ApplicationController
     def index
+      session[:category_id] = params[:category_id]
+      Rails.logger.info "TiresController#index #{session[:category_id]}]}"
       @pagy, @tires = pagy(Product.tires)
     end
 

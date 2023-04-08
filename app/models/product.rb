@@ -36,7 +36,6 @@ class Product < ApplicationRecord
   scope :tires, -> { joins(:brand).where('brands.category_id = ?', Category.find_by(name: 'Гуми').id) }
 
   enum vat: { '18%' => 18, '5%' => 5, '0%' => 0 }
-  # enum vat: { da: 0, ne: 1, i: 2 }
 
   def display_name
     "#{dimension} #{name}"

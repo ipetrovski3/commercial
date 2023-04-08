@@ -27,7 +27,7 @@ class BrandsController < ApplicationController
 
   def category
     {
-      category: Category.find_by(name: 'Гуми')
+      category: Category.find(session[:category_id])
     }
   end
 end

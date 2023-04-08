@@ -1,0 +1,8 @@
+<% @patterns.each do |dimension| %>
+  <li class="hover:bg-sky-300 rounded p-2" role="option" data-autocomplete-value="<%= dimension.id %>" data-autocomplete-label="<%= dimension.name %>">
+    <%= dimension.name %>
+  </li>
+<% end %>
+  <li class="hover:bg-sky-300 p-2">
+    <%= link_to 'Креирај Модел', new_pattern_path, data: { turbo_frame: 'modal'}, role: 'option' %>
+  </li>

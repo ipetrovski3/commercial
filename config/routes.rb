@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'products#index'
 
-  get '.well-known/apple-developer-merchantid-domain-association', to: 'apple_pay#apple_developer_merchantid_domain_association'
-
   resources :reports
   get '/reports/period', to: 'reports#period'
   get 'reports/by_season', to: 'reports#by_season'
@@ -25,7 +23,12 @@ Rails.application.routes.draw do
       end
     end
     resources :services
-    resources :others
+    resources :others do
+      collection do
+        get :brands
+        get :patterns
+      end
+    end
   end
 
   resources :warehouses, only: %i[index destroy]
